@@ -3,4 +3,4 @@ project(File_directory_system)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(File_directory_system main.cpp)
+add_executable(File_directory_system main.cpp kernel/FCB/FCB.cpp kernel/FCB/FCB.h kernel/Directory_Tree/Directory_Tree.cpp kernel/Directory_Tree/Directory_Tree.h kernel/File_Node/File_Node.cpp kernel/File_Node/File_Node.h)
