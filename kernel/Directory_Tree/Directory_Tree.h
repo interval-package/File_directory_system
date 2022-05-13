@@ -11,6 +11,7 @@
 
 class Directory_Tree {
 private:
+//    这里没有使用二叉树实现，麻了
     typedef class Directory {
         std::vector<FCB> files;
         Directory* super;
@@ -27,11 +28,11 @@ public:
     Tree_p current;
     Directory_Tree();
 
-    void cd(const std::string&);
+    void cd(const std::string& subdir);
 
     void dir() const;
 
-    void add_folder(std::string) const;
+    void add_folder(std::string name) const;
 };
 
 

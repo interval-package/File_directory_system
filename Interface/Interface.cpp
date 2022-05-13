@@ -11,16 +11,19 @@
 
 void Interface::main_show() {
     cout<<"commands:\n"
-          "cd [directory name]:\tchange current directory\n"
-          "dir:\tshow the indent of cur directory\n"
-          "mkdir [name]:\tmake dir\n";
+          "cd [directory name]: change current dir\n"
+          "dir: show the indent of cur dir\n"
+          "mkdir [name]: make dir\n"
+          "rmdir [name]: remove dir\n"
+          "ser [Relative path]: check folder\n"
+          "q: to quit\n";
 }
 
 command_pack Interface::arise_command() {
     std::istringstream foo;
     string command, com;
     command_pack req;
-    cout<<"input: ";
+    cout<<"input:";
     getline(cin,command);
     foo.str(command);
     while (foo>>com){
@@ -53,13 +56,12 @@ void Interface::analyse_command(const command_pack& req) {
     }
 }
 
-[[noreturn]] void Interface::main() {
+void Interface::main() {
     command_pack req;
+    this->main_show();
     while (true){
-        Interface::refresh();
-        this->main_show();
         req = this->arise_command();
+        if(req[0] == "q")break;
         this->analyse_command(req);
-        system("pause");
     }
 }

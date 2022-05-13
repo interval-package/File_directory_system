@@ -8,14 +8,15 @@
 #include <iostream>
 #include <vector>
 #include "../kernel/Directory_Tree/Directory_Tree.h"
+#include "../kernel/Directory_Tree/Directory_Bin_Tree.h"
 using namespace std;
 typedef vector<string> command_pack;
 
 
 class Interface {
-    Directory_Tree index;
+    Directory_Bin_Tree index;
 public:
-    [[noreturn]] void main();
+    void main();
 
     static void refresh(){
         system("cls");
