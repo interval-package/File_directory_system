@@ -15,16 +15,23 @@ private:
         std::vector<FCB> files;
         Directory* super;
         std::vector<Directory*> subs;
-        std::string dir_name;
     public:
         Directory();
         Directory(Directory*,std::string);
 
+        friend Directory_Tree;
+        std::string dir_name;
     } *Tree_p;
     Directory home;
 public:
     Tree_p current;
     Directory_Tree();
+
+    void cd(const std::string&);
+
+    void dir() const;
+
+    void add_folder(std::string) const;
 };
 
 

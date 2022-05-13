@@ -15,19 +15,17 @@ typedef vector<string> command_pack;
 class Interface {
     Directory_Tree index;
 public:
+    [[noreturn]] void main();
+
     static void refresh(){
         system("cls");
     }
 
     static void main_show();
 
-    static string arise_command();
+    static command_pack arise_command();
 
     void analyse_command(const command_pack&);
-
-    void cd(string);
-
-    void dir();
 };
 
 

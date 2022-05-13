@@ -5,40 +5,61 @@
 #include "Interface.h"
 #include <string>
 #include <vector>
+#include <sstream>
 
 
 
 void Interface::main_show() {
     cout<<"commands:\n"
-          "cd [directory name]:\t\n"
+          "cd [directory name]:\tchange current directory\n"
           "dir:\tshow the indent of cur directory\n"
-          "\n"
-          "\n"
-          "\n"<<endl;
+          "mkdir [name]:\tmake dir\n";
 }
 
-string Interface::arise_command() {
-    string command;
+command_pack Interface::arise_command() {
+    std::istringstream foo;
+    string command, com;
     command_pack req;
     cout<<"input: ";
-    while(cin>>command){
-        req.push_back(command);
-    }
-    return command;
+    getline(cin,command);
+    foo.str(command);
+    while (foo>>com){
+        req.push_back(com);
+    };
+    return req;
 }
 
 void Interface::analyse_command(const command_pack& req) {
-    string com = req.front();
-    if(com == "cd"){
-        if(req.empty()){
+    auto com = req.begin();
+    if(*com == "cd"){
+        ++com;
+        if(com == req.end()){
             cout<<"do not get dir"<<endl;
         } else{
-            this->cd(req.front());
+            this->index.cd(*com);
         }
-        return;
-    }else if (com == "dir"){
-        dir();
+    }else if (*com == "dir"){
+        ++com;
+        this->index.dir();
+    }else if (*com == "mkdir"){
+        ++com;
+        if(com == req.end()){
+            cout<<"do not get dir name"<<endl;
+        } else{
+            this->index.add_folder(*com);
+        }
     } else{
         cout<<"error command"<<endl;
+    }
+}
+
+[[noreturn]] void Interface::main() {
+    command_pack req;
+    while (true){
+        Interface::refresh();
+        this->main_show();
+        req = this->arise_command();
+        this->analyse_command(req);
+        system("pause");
     }
 }
