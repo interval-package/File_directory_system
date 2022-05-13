@@ -39,19 +39,40 @@ void Interface::analyse_command(const command_pack& req) {
         if(com == req.end()){
             cout<<"do not get dir"<<endl;
         } else{
-            this->index.cd(*com);
+            if(!this->index.cd_deep(*com)){
+                cout<<"no such file"<<endl;
+            }
         }
-    }else if (*com == "dir"){
+    } else if (*com == "dir"){
         ++com;
         this->index.dir();
-    }else if (*com == "mkdir"){
+    } else if (*com == "mkdir"){
         ++com;
         if(com == req.end()){
             cout<<"do not get dir name"<<endl;
         } else{
             this->index.add_folder(*com);
         }
-    } else{
+    } else if(*com == "rmdir"){
+        ++com;
+        if(com == req.end()){
+            cout<<"do not get dir name"<<endl;
+        } else{
+            this->index.remove_folder(*com);
+        }
+    } else if(*com == "ser"){
+        ++com;
+        if(com == req.end()){
+            cout<<"do not get dir name"<<endl;
+        } else{
+            if(this->index.search_folder(*com)){
+                cout<<"file found"<<endl;
+            } else{
+                cout<<"no such file"<<endl;
+            }
+        }
+    }
+    else{
         cout<<"error command"<<endl;
     }
 }

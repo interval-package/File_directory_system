@@ -4,6 +4,7 @@
 
 #include "Directory_Bin_Tree.h"
 #include <iostream>
+#include <sstream>
 #include <utility>
 
 using namespace std;
@@ -13,17 +14,17 @@ Directory_Bin_Tree::Directory_Bin_Tree() {
     this->current = &this->home;
 }
 
-void Directory_Bin_Tree::cd(const std::string &subdir) {
+bool Directory_Bin_Tree::cd(const std::string &subdir) {
     bin_dir_p temp;
     temp = this->current->chi;
     while(temp){
         if(temp->dir_name == subdir){
             this->current = temp;
-            return;
+            return true;
         };
         temp = temp->sib;
     }
-    cout<<"no such file"<<endl;
+    return false;
 }
 
 void Directory_Bin_Tree::dir() const {
@@ -72,8 +73,28 @@ void Directory_Bin_Tree::remove_folder(std::string name) const {
     cout<<"no such file"<<endl;
 }
 
-void Directory_Bin_Tree::search_folder(std::string path) const {
+bool Directory_Bin_Tree::search_folder(const std::string& path) {
+    istringstream instr(path);
+    string token;
+    bin_dir_p cache_cur = current;
+    while (getline(instr,token,'/')){
+        if(!this->cd(token)){
+            current = cache_cur;
+            return false;
+        }
+    }
+    current = cache_cur;
+    return true;
+}
 
+bool Directory_Bin_Tree::cd_deep(const string &path) {
+    if(!search_folder(path))return false;
+    istringstream instr(path);
+    string token;
+    while (getline(instr,token,'/')){
+        this->cd(token);
+    }
+    return true;
 }
 
 Directory_Bin_Tree::bin_dir::bin_dir() {

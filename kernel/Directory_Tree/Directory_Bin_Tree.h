@@ -26,7 +26,9 @@ public:
 
     Directory_Bin_Tree();
 
-    void cd(const std::string& subdir);
+    bool cd(const std::string& subdir);
+
+    bool cd_deep(const std::string& path);
 
     void dir() const;
 
@@ -34,7 +36,7 @@ public:
 
     void remove_folder(std::string name) const;
 
-    void search_folder(std::string path) const
+    bool search_folder(const std::string& path);
 };
 
 
