@@ -1,0 +1,13 @@
+//
+// Created by Zza on 2022/5/13.
+//
+
+#ifndef FILE_DIRECTORY_SYSTEM_INDEXING_NODE_H
+#define FILE_DIRECTORY_SYSTEM_INDEXING_NODE_H
+
+
+class Indexing_Node {
+};
+
+
+#endif //FILE_DIRECTORY_SYSTEM_INDEXING_NODE_H
